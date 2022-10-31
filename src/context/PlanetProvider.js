@@ -23,7 +23,7 @@ function PlanetProvider({ children }) {
     },
     setNameFilter,
     setFilterByNumbers,
-  }), [data]);
+  }), [data, filterByNumbers, nameFilter]);
 
   return (
     <PlanetContext.Provider value={ contextValue }>

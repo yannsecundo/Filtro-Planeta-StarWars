@@ -15,6 +15,7 @@ function App() {
         width="100%"
         height="450"
       />
+      <h1>Projeto Star Wars - Trybe</h1>
       <NameFilter />
       <RenderFilter />
       <NumberFilter />

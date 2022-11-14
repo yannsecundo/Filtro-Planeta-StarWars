@@ -10,7 +10,6 @@ function TableBody() {
     .filter((planet) => planet.name.toLowerCase().includes(nameFilter.toLowerCase()))
     .filter((planet) => filterByNumbers
       .every(({ column, comparison, value }) => {
-        console.log(value);
         if (comparison === 'maior que') {
           return +planet[column] > +value;
         }

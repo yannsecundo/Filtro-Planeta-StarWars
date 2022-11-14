@@ -54,73 +54,104 @@ const mockFetch = () => {
 // });
 // aprendendo mocks meu deus eu to muito feliz socorro
 describe('Testando os selects', () => {
-it('Testando as colunas', async () => {
-  global.fetch = jest.fn().mockResolvedValue({
-    json: jest.fn().mockResolvedValue(testData),
-   });
-    await act( async () => {
+  it('Testando as colunas', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(testData),
+    });
+    await act(async () => {
       renderWithContext(
-      <PlanetProvider>
-        <App />
-      </PlanetProvider>);
+        <PlanetProvider>
+          <App />
+        </PlanetProvider>);
     })
 
-  const collumInput = screen.getByTestId('column-filter');
-  userEvent.selectOptions(collumInput, ['population']);
-  await waitFor(() => expect(collumInput).toHaveValue('population'))
+    const collumInput = screen.getByTestId('column-filter');
+    userEvent.selectOptions(collumInput, ['population']);
+    await waitFor(() => expect(collumInput).toHaveValue('population'))
 
-  const collumInput2 = screen.getByTestId('column-filter');
-  userEvent.selectOptions(collumInput2, ['surface_water']);
-  await waitFor(() => expect(collumInput2).toHaveValue('surface_water'))
+    const collumInput2 = screen.getByTestId('column-filter');
+    userEvent.selectOptions(collumInput2, ['surface_water']);
+    await waitFor(() => expect(collumInput2).toHaveValue('surface_water'))
 
-  const collumInput3 = screen.getByTestId('column-filter');
-  userEvent.selectOptions(collumInput3, ['orbital_period']);
-  await waitFor(() => expect(collumInput3).toHaveValue('orbital_period'))
+    const collumInput3 = screen.getByTestId('column-filter');
+    userEvent.selectOptions(collumInput3, ['orbital_period']);
+    await waitFor(() => expect(collumInput3).toHaveValue('orbital_period'))
 
-  const collumInput4 = screen.getByTestId('column-filter');
-  userEvent.selectOptions(collumInput4, ['diameter']);
-  await waitFor(() => expect(collumInput4).toHaveValue('diameter'))
+    const collumInput4 = screen.getByTestId('column-filter');
+    userEvent.selectOptions(collumInput4, ['diameter']);
+    await waitFor(() => expect(collumInput4).toHaveValue('diameter'))
 
-  const collumInput5 = screen.getByTestId('column-filter');
-  userEvent.selectOptions(collumInput5, ['rotation_period']);
-  await waitFor(() => expect(collumInput5).toHaveValue('rotation_period'))
+    const collumInput5 = screen.getByTestId('column-filter');
+    userEvent.selectOptions(collumInput5, ['rotation_period']);
+    await waitFor(() => expect(collumInput5).toHaveValue('rotation_period'))
 
-  const operatorInput = screen.getByTestId('comparison-filter');
-  userEvent.selectOptions(operatorInput, ['igual a']);
-  expect(operatorInput).toHaveValue('igual a');
+    const operatorInput = screen.getByTestId('comparison-filter');
+    userEvent.selectOptions(operatorInput, ['igual a']);
+    expect(operatorInput).toHaveValue('igual a');
 
-  const operatorInputEqual = screen.getByTestId('comparison-filter');
-  userEvent.selectOptions(operatorInputEqual, ['maior que']);
-  expect(operatorInputEqual).toHaveValue('maior que');
+    const operatorInputEqual = screen.getByTestId('comparison-filter');
+    userEvent.selectOptions(operatorInputEqual, ['maior que']);
+    expect(operatorInputEqual).toHaveValue('maior que');
 
-  const operatorInput2 = screen.getByTestId('comparison-filter');
-  userEvent.selectOptions(operatorInput2, ['menor que']);
-  expect(operatorInput2).toHaveValue('menor que');
+    const operatorInput2 = screen.getByTestId('comparison-filter');
+    userEvent.selectOptions(operatorInput2, ['menor que']);
+    expect(operatorInput2).toHaveValue('menor que');
 
-  const btnFilterr = screen.getByTestId('button-filter');
-  await waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(11))
-  userEvent.click(btnFilterr); 
+    const btnFilterr = screen.getByTestId('button-filter');
+    await waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(11))
+    
+    
+    userEvent.click(btnFilterr);
 
-  const inputName = screen.getByRole('columnheader', {
-    name: /bespin/i
-  })
-  expect(inputName).toBeDefined();
+    const inputName = screen.getByRole('columnheader', {
+      name: /diameter/i
+    })
 
-  const inputName2 = screen.getByRole('columnheader', {
-    name: /dagobah/i
-  })
-  expect(inputName2).toBeDefined();
+    expect(inputName).toBeInTheDocument();
 
-  const planet = screen.getByRole('columnheader', {
-    name: /hoth/i
-  })
-  expect(planet).toBeDefined();
+    const inputName2 = screen.getByRole('columnheader', {
+      name: /climate/i
+    })
+    expect(inputName2).toBeInTheDocument();
 
-  const nameCollum = screen.getByRole('columnheader', {
-    name: /name/i
-  })
-  expect(nameCollum).toBeDefined();
-  })
+    const planet = screen.getByRole('columnheader', {
+      name: /gravity/i
+    })
+    expect(planet).toBeInTheDocument();
+
+    const nameCollum = screen.getByRole('columnheader', {
+      name: /name/i
+    })
+    expect(nameCollum).toBeInTheDocument();
+  });
+});
+
+describe('Testando o renderFilter', () => {
+  it(('testando os botões de remover filtro'), async () => {
+      global.fetch = jest.fn().mockResolvedValue({
+      json: jest.fn().mockResolvedValue(testData),
+    });
+    await act(async () => {
+      renderWithContext(
+        <PlanetProvider>
+          <App />
+        </PlanetProvider>);
+    });
+
+    const btnFilterr = screen.getByTestId('button-filter');
+    userEvent.click(btnFilterr);
+
+    await waitFor(() => expect(screen.getByTestId('filter-span')).toBeInTheDocument());
+
+    await waitFor(() => expect(screen.getByTestId('xixbutton')).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTestId('xixbutton'));
+
+    await waitFor(() => expect(screen.getByTestId('button-remove-filters')).toBeInTheDocument());
+     
+    const btnRemoveAll = screen.getByTestId('button-remove-filters');
+    userEvent.click(btnRemoveAll);
+  });
 })
 
 // describe('Testes de pesquisa', () => {

@@ -11,8 +11,9 @@ function RenderFilter() {
     <div>
       {filterByNumbers.map((filter) => (
         <div key={ filter.column } data-testid="filter">
-          <span>{filter.column}</span>
+          <span data-testid="filter-span">{filter.column}</span>
           <button
+            data-testid="xixbutton"
             type="button"
             onClick={ () => setFilterByNumbers(
               filterByNumbers.filter(

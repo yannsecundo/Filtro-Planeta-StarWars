@@ -3,11 +3,14 @@ import PlanetContext from '../context/PlanetContext';
 
 function TableBody() {
   const { data, filters: { nameFilter, filterByNumbers } } = useContext(PlanetContext);
+
   const keys = Object.keys(data[0] || {}).filter((key) => key !== 'residents');
+
   const filteredData = data
     .filter((planet) => planet.name.toLowerCase().includes(nameFilter.toLowerCase()))
     .filter((planet) => filterByNumbers
       .every(({ column, comparison, value }) => {
+        console.log(value);
         if (comparison === 'maior que') {
           return +planet[column] > +value;
         }

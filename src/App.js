@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import NameFilter from './components/NameFilter';
 import NumberFilter from './components/NumberFilter';
+import PlanetsSort from './components/PlanetsSort';
 import RenderFilter from './components/RenderFilter';
 import TablePlanet from './components/TablePlanet';
 import PlanetProvider from './context/PlanetProvider';
@@ -17,8 +18,13 @@ function App() {
       />
       <h1>Projeto Star Wars - Trybe</h1>
       <NameFilter />
+      <br />
       <RenderFilter />
+      <br />
       <NumberFilter />
+      <br />
+      <PlanetsSort />
+      <br />
       <TablePlanet />
     </PlanetProvider>
   );

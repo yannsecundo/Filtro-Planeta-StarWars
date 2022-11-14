@@ -69,6 +69,17 @@ describe('Testando os selects', () => {
     userEvent.selectOptions(collumInput, ['population']);
     await waitFor(() => expect(collumInput).toHaveValue('population'))
 
+    const operatorInput = screen.getByTestId('comparison-filter');
+    userEvent.selectOptions(operatorInput, ['igual a']);
+    expect(operatorInput).toHaveValue('igual a');
+
+    const btnCaseOne = screen.getByTestId('button-filter');
+    userEvent.click(btnCaseOne);
+
+    await waitFor(() => expect(screen.getAllByRole('row')).toHaveLength(1))
+    userEvent.click(screen.getByTestId('button-remove-filters'));
+
+    // ------------------
     const collumInput2 = screen.getByTestId('column-filter');
     userEvent.selectOptions(collumInput2, ['surface_water']);
     await waitFor(() => expect(collumInput2).toHaveValue('surface_water'))
@@ -85,9 +96,7 @@ describe('Testando os selects', () => {
     userEvent.selectOptions(collumInput5, ['rotation_period']);
     await waitFor(() => expect(collumInput5).toHaveValue('rotation_period'))
 
-    const operatorInput = screen.getByTestId('comparison-filter');
-    userEvent.selectOptions(operatorInput, ['igual a']);
-    expect(operatorInput).toHaveValue('igual a');
+   
 
     const operatorInputEqual = screen.getByTestId('comparison-filter');
     userEvent.selectOptions(operatorInputEqual, ['maior que']);
